@@ -16,7 +16,7 @@ pip install -r requirements.txt
 # Usage
 1.Register the target ASR cloud services provided and fill in the relevant information in the decode file.
 
-2.Add the song you would like as carrier audios to the `music` folder in wav format with the sample rate of 16000
+2.Create the `music` folder and add the song you would like as carrier audios to it in wav format with the sample rate of 16000
 
 3.Use the cloud text-to-speech service to generate audios of the target attack commands in wav format with the sample rate of 16000 and place them under the `command` folder
 
