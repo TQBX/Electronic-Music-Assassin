@@ -14,8 +14,22 @@ cd Electronic-Music-Assassin
 pip install -r requirements.txt
 ```
 # Usage
+1.Register the target ASR cloud services provided and fill in the relevant information in the decode file.
 
-​<audio id="audio" controls="" preload="none">
-      <source id="mp3" src="">
-</audio>
+2.Add the song you would like as carrier audios to the `music` folder in wav format with the sample rate of 16000
+
+3.Use the cloud text-to-speech service to generate audios of the target attack commands in wav format with the sample rate of 16000 and place them under the `command` folder
+
+4.For attacks in the digital world, you can obtain the AEs by executing the following code：
+```
+python attack_digital.py --speech-file-path target_TTS_path --music-file-path ./music --attack-target [tencentyun,aliyun,iflytec,google,azure] --sample-num successful_AEs_number
+```
+Successful AEs will be saved in folder `success_digital_samples`
+
+5.For attacks in the physical world, you can obtain the AEs by executing the following code：
+```
+python attack_physical.py --speech-file-path target_TTS_path --music-file-path ./music --sample-num AEs_number
+```
+AEs will be saved in folder `physical_samples` and you need the test wheather they are successful in the physical devices.
+
 
