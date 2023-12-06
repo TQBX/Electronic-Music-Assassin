@@ -16,7 +16,7 @@ ACCOUNT={
     },
     "Google": " ",
     "Microsoft": {
-        "speech_key": " ",
+        "api_key": " ",
         "location": " "
     }
 }
