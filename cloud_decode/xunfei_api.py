@@ -6,10 +6,11 @@ import traceback
 from cloud_decode.xunfei_function import *
 from typing import List, Union, Tuple
 from cloud_decode.log_utils import exception_printer, get_logger
+from account import ACCOUNT
 
-__app_id__ = 'f7b05a8e'
-__api_key__ = '7dd26837662c403ad13ee7fd82a39382'
-__api_secret__ = 'OGZhMzg5MDIyMThiOWM3MzlmNjcwNTU3'
+__app_id__ = ACCOUNT["iFLYTEK"]["app_id"]
+__api_key__ = ACCOUNT["iFLYTEK"]["app_key"]
+__api_secret__ = ACCOUNT["iFLYTEK"]["app_secret"]
 
 IFLYTEC_JSON_SUFFIX = ".iflytec.json"
 
