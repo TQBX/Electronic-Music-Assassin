@@ -10,6 +10,7 @@ import json
 import sys
 import threading
 from datetime import datetime
+from account import ACCOUNT
 
 class Credential:
     def __init__(self, secret_id, secret_key):
@@ -152,13 +153,10 @@ class FlashRecognizer:
 
 
 
-
-
 def tencent_recong(path, language='en-US'):
-    # 注意：使用前务必先填写APPID、SECRET_ID、SECRET_KEY，否则会无法运行！！！
-    APPID = "1316104262"
-    SECRET_ID = "AKIDzzvkT9kFi7Um1CIWfgZN8563HScQAoLs"
-    SECRET_KEY = "VtBLMG3iFevStEurmeRI3iErPvMfrwul"
+    APPID = ACCOUNT["Tencent"]["app_id"]
+    SECRET_ID = ACCOUNT["Tencent"]["secret_id"]
+    SECRET_KEY = ACCOUNT["Tencent"]["secret_key"]
     if language=='en-US':
         ENGINE_TYPE = "16k_en"
     elif language=='zh-CN':
@@ -178,10 +176,8 @@ def tencent_recong(path, language='en-US'):
         exit(0)
 
     credential_var = Credential(SECRET_ID, SECRET_KEY)
-    # 新建FlashRecognizer，一个recognizer可以执行N次识别请求
     recognizer = FlashRecognizer(APPID, credential_var)
-
-    # 新建识别请求
+    
     req = FlashRecognitionRequest(ENGINE_TYPE)
     req.set_filter_modal(0)
     req.set_filter_punc(0)
@@ -190,94 +186,18 @@ def tencent_recong(path, language='en-US'):
     req.set_word_info(0)
     req.set_convert_num_mode(1)
 
-    # 音频路径
     with open(path, 'rb') as f:
-        #读取音频数据
         data = f.read()
-        #执行识别
         resultData = recognizer.recognize(req, data)
         resp = json.loads(resultData)
-        #print(resp)
         request_id = resp["request_id"]
         code = resp["code"]
         success = True
         result = resp["flash_result"][0]['text']
         if code != 0:
-            # print("recognize faild! request_id: ", request_id, " code: ", code, ", message: ", resp["message"])
             success = False
             result = resp['message']
-
-        # print("request_id: ", request_id)
-        #一个channl_result对应一个声道的识别结果
-        #大多数音频是单声道，对应一个channl_result
-        #for channl_result in resp["flash_result"]:
-        #    # print("channel_id: ", channl_result["channel_id"])
-        #    print(channl_result["text"])
 
         return result,success
 
 
-if __name__ == "__main__":
-    path = "/home/yxj/Phantom-of-Formants/whereismycarTTSaudio2s.wav"
-    #path = "/home/yxj/Phantom-of-Formants/find-result/TF/2/rock_1105_11000_3to13_pick_50d1449_743c04c21bbb932a/"
-    re,success,na = tencent_recong(path)
-    print(re,na)
-
-
-
-
-
-
-
-'''
-# -*- coding:utf-8 -*-
-import base64
-from tencentcloud.asr.v20190614 import asr_client, models
-from tencentcloud.common import credential
-from tencentcloud.common.profile.client_profile import ClientProfile
-from tencentcloud.common.profile.http_profile import HttpProfile
-import scipy.io.wavfile as wav
-
-
-filename = path.split('/home/yxj/Phantom-of-Formants/find-result/TF/2/')[-1]
-    # appid = '1252836971'  #可以不使用
-    cred = credential.Credential("AKIDdP5jIcfRxDDepkOyWyKYhkgVCi13pLbZ",
-                                 "mHXWFhvuc3D7mBMHvIPGq9B2cuvf9MIy")  # SecretId and SecretKey
-    httpProfile = HttpProfile()
-    httpProfile.endpoint = "asr.tencentcloudapi.com"
-    clientProfile = ClientProfile()
-    clientProfile.httpProfile = httpProfile
-    clientProfile.signMethod = "TC3-HMAC-SHA256"
-    client = asr_client.AsrClient(cred, "ap-shanghai", clientProfile)
-
-    # 读取文件以及base64
-    fwave = open(path, mode='rb').read()
-    dataLen = len(fwave)
-    base64Wav = base64.b64encode(fwave).decode('utf8')
-    # print(base64Wav)
-    # 发送请求
-    req = models.SentenceRecognitionRequest()
-    params = {
-        "ProjectId": 0,
-        "SubServiceType": 2,
-        "EngSerViceType": "16k_en",  # 识别16k的英语音频
-        "SourceType": 1,
-        "Url": "",
-        "VoiceFormat": "wav",
-        "UsrAudioKey": "session-123",
-        "Data": base64Wav,
-        "DataLen": dataLen}
-
-    rate, _ = wav.read(path)
-    params['EngSerViceType']=f"{int(rate/1000)}k_en"
-    req._deserialize(params)
-
-    resp = client.SentenceRecognition(req)
-
-    result = resp.Result
-    success = True
-    if result == "":
-        result = "null"
-        success = False
-    return result, success, filename
-'''
