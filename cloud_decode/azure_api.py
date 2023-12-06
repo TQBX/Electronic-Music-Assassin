@@ -5,9 +5,10 @@ import azure.cognitiveservices.speech as speech_sdk
 import click
 
 from utils import *
+from account import ACCOUNT
 
-__api_key__ = "6c7fc6952c9d4081a6dfa9ade580eccd"
-__api_region__ = "eastasia"
+__api_key__ = ACCOUNT["Microsoft"]["api_key"]
+__api_region__ = ACCOUNT["Microsoft"]["location"]
 
 
 def azure_decode_multi(audio_files: List[str], key: str = __api_key__, region: str = __api_region__, save_result: bool = True, max_workers: int = None, max_repeat_time: int = 1, wait_seconds: int = 10, output_format="transaction", language="zh-CN") -> List[str]:
@@ -138,45 +139,4 @@ def azure_decode(audio_file: str, key: str = __api_key__, region: str = __api_re
 
     return wav_result['result'],wav_result['success']
 
-@click.command("API Recognize Script for Azure Cortana.")
-@click.argument("wav_folder", type=click.Path(exists=True))
-@click.option("--region", default=__api_region__, type=str, help="Region for decoding API. Default is centralus.")
-@click.option("--key", default=__api_key__, type=str, help="Key for decoding API. Default is ***.")
-@click.option("--language", '-l', default="en-US", type=click.Choice(['en-US', 'zh-CN'], case_sensitive=True), help="Language code in ['en-US', 'zh-CN']")
-@click.option("--re_decode_all", expose_value=True, is_flag=True, default=False, help="Whether re-decode all the wav files. Default is False.")
-@click.option("--re_decode_failed", expose_value=True, is_flag=True, default=False, help="Whether to re-decode the failed decoding wav files. Default is False.")
-@click.option("--max_workers", default=4, type=int, help="The number of the multi-process. Default is MAX.")
-def api_recognize(wav_folder: str, region: str, key: str, language: str = "zh-CN", re_decode_all: bool = False, re_decode_failed: bool = False, max_workers: int = 4):
-    logger.info("Start decode folder {} using Azure Cortana.".format(wav_folder))
 
-    with futures.ProcessPoolExecutor(max_workers=max_workers) as _executor_:
-        jobs = []
-
-        wav_files = glob.glob(os.path.join(wav_folder, "**", "*.wav"), recursive=True)
-        wav_files = filter_irrelevant_wav(wav_files)
-        for wav_file in wav_files:
-            wav_decode_file = wav_file.replace(".wav", AZURE_JSON_SUFFIX)
-
-            if os.path.exists(wav_decode_file):
-                try:
-                    with open(wav_decode_file, 'r') as _file_:
-                        wav_result = json.load(_file_)
-
-                        if wav_result['success'] and not re_decode_all:  # 成功不重新解码
-                            continue
-                        elif not wav_result['success'] and not re_decode_failed:  # 失败但不重新解码
-                            continue
-                except json.decoder.JSONDecodeError:
-                    logger.warning("Load wav_decode_file '{}' Error. Re-decode the wav file using Azure.".format(wav_decode_file))
-
-            jobs.append(
-                _executor_.submit(azure_decode, wav_file, key, region, language=language)
-            )
-
-        wait_for_jobs(jobs, _executor_)
-
-    logger.info('Decoding folder {} Done!'.format(wav_folder))
-
-
-if __name__ == '__main__':
-    api_recognize()
