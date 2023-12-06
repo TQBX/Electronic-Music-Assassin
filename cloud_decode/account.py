@@ -1,21 +1,18 @@
 ACCOUNT={
-    "Baidu": {
-        "appId": " ",
-        "apiKey": " ",
-        "secretKey": " "
-    },
     "Alibaba": {
         "app_key": " ",
         "access_key_id": " ",
         "access_key_secret": " "
     },
     "Tencent": {
+        "app_id": " ",
         "secret_id": " ",
         "secret_key": " "
     },
     "iFLYTEK": {
-        "appid": " ",
-        "secret_key": " "
+        "app_id": " ",
+        "app_key": " ",
+        "app_secret": " "
     },
     "Google": " ",
     "Microsoft": {
