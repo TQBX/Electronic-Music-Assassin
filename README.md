@@ -14,7 +14,7 @@ cd Electronic-Music-Assassin
 pip install -r requirements.txt
 ```
 # Usage
-1.Register the target ASR cloud services provided and fill in the relevant information in the decode file.
+1.Register the target ASR cloud services provided and fill in the relevant information in the  `account.py`.
 
 2.Create the `music` folder and add the song you would like as carrier audios to it in wav format with the sample rate of 16000
 
