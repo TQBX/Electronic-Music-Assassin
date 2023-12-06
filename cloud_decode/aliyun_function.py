@@ -1,7 +1,7 @@
 import http.client
 import json
 import sys
-sys.path.append('/Users/liruiyuan/Desktop/study/adversarial_attack/cloud_decode')
+sys.path.append(' ')
 from account import ACCOUNT
 from aliyunsdkcore.client import AcsClient
 from aliyunsdkcore.request import CommonRequest
@@ -12,8 +12,6 @@ def aliyun_recong(audio_path):
     access_key_secret=ACCOUNT["Alibaba"]["access_key_secret"]
 
     client = AcsClient(access_key_id, access_key_secret, "cn-shanghai")
-
-    # 创建request，并设置参数。
     request = CommonRequest()
     request.set_method('POST')
     request.set_domain('nls-meta.cn-shanghai.aliyuncs.com')
@@ -25,10 +23,8 @@ def aliyun_recong(audio_path):
     token = json.loads(token)
     token = token['Token']['Id']
 
-    # 服务请求地址
     url = 'http://nls-gateway.cn-shanghai.aliyuncs.com/stream/v1/asr'
 
-    # 音频文件
     audioFile = audio_path
     format = 'wav'
     sampleRate = 16000
@@ -36,7 +32,6 @@ def aliyun_recong(audio_path):
     enableInverseTextNormalization = True
     enableVoiceDetection  = False
 
-    # 设置RESTful请求参数
     request = url + '?appkey=' + appKey
     request = request + '&format=' + format
     request = request + '&sample_rate=' + str(sampleRate)
@@ -58,23 +53,21 @@ def aliyun_recong(audio_path):
 
 
 def process(request, token, audioFile) :
-    # 读取音频文件
     with open(audioFile, mode = 'rb') as f:
         audioContent = f.read()
 
     host = 'nls-gateway.cn-shanghai.aliyuncs.com'
-
-    # 设置HTTP请求头部
+    
     httpHeaders = {
         'X-NLS-Token': token,
         'Content-type': 'application/octet-stream',
         'Content-Length': len(audioContent)
         }
 
-    # Python 2.x使用httplib
+    # Python 2.x->httplib
     # conn = httplib.HTTPConnection(host)
 
-    # Python 3.x使用http.client
+    # Python 3.x->http.client
     conn = http.client.HTTPConnection(host)
 
     conn.request(method='POST', url=request, body=audioContent, headers=httpHeaders)
@@ -104,7 +97,3 @@ def process(request, token, audioFile) :
     conn.close()
 
     return result,success_flag
-
-
-if __name__ == "__main__":
-    aliyun_recong('/Users/liruiyuan/Desktop/study/adversarial_attack/success_samples/make_it_warmer/make_it_warmer_Frontier_242089_96_aliyun_13.wav',0)
