@@ -19,7 +19,7 @@ import json
 from cmaes import CMA
 import matplotlib.pyplot as plt
 import sys
-sys.path.append('/Users/liruiyuan/Desktop/study/adversarial_attack/cloud_decode')
+sys.path.append('./cloud_decode')
 from cloud_decode.aliyun_function import *
 from cloud_decode.tencentyun_function import *
 from cloud_decode.baidu_api import *
@@ -39,7 +39,7 @@ parser.add_argument('--seed', type=int, default=2023, metavar='S',help='random s
 parser.add_argument('--epoch', type=int, default=1000)
 parser.add_argument('--speech-file-path', default='',type=str, help='speech file path')
 parser.add_argument('--music-file-path', default='',type=str, help='music file path')
-parser.add_argument('--attack-target', default='google',type=str,choices=['tencentyun','aliyun','baiduyun','iflytec','google','azure'])
+parser.add_argument('--attack-target', default='google',type=str,choices=['tencentyun','aliyun','iflytec','google','azure'])
 parser.add_argument('--sample-num', default=0,type=int, help='samples num')
 parser.add_argument('--sound-db', default=75,type=int, help='sound db')
 
@@ -57,8 +57,6 @@ class Attacker:
             self.decode_function=tencent_recong
         if args.attack_target == 'aliyun':
             self.decode_function=aliyun_recong
-        if args.attack_target == 'baiduyun':
-            self.decode_function=baidu_decode
         if args.attack_target == 'iflytec':
             self.decode_function=xunfei_decode
         if args.attack_target == 'google':
