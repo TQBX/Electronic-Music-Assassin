@@ -42,7 +42,7 @@ class Trainer_AE:
         self.lr=1e-5
      
         self.dataloader = DataLoader(
-            file_path='/home/ryli/Project/music-adversarial-GAN/Dataset/digital/digital.wav',
+            file_path='', #electric music path
             batch_size=self.batch_size, num_workers=self.num_workers)
 
         self.encoder=Encoder().cuda()
@@ -52,7 +52,7 @@ class Trainer_AE:
         self.discriminator =ZDiscriminator().cuda()
         self.discriminator.train()
 
-        model_state = torch.load('../models/AE_0608_11_25.pth')
+        model_state = torch.load('') #pretrained model
         self.encoder.load_state_dict(model_state['encoder_state'])
         self.decoder.load_state_dict(model_state['decoder_state'])
         self.discriminator.load_state_dict(model_state['discriminator_state'])
@@ -97,7 +97,7 @@ class Trainer_AE:
     def train_AE(self):
         for epoch in range(self.epochs):
             self.train_epoch(epoch)
-            self.save_model('AE_0608_11_25.pth')
+            self.save_model('') #model path
 
     def save_model(self, filename):
         save_path = Path('../models')/filename
