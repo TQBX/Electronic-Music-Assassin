@@ -35,10 +35,43 @@ AEs will be saved in folder `physical_samples` and you need the test wheather th
 # Demos
 You can see the AEs we used in our survey on human auditory perception in the folder `AEs`. AEs for both the physical and digital worlds are included in it.
 
+To facilitate comparison, we split the target commands into two groups, one half for comparison in the physical world and the other half for comparison in the digital world.
+
+We first show five groups of AEs on Google Assistant in the physical world:
 
 
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/701e06d7-e948-4e0f-bac0-0135eddae9bc
 
-https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/fb06d538-5612-4eb3-be9c-1797645a11eb
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/b9b2a2b7-5af1-45c2-8f8c-cceb5ed14b0d
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/173c61cd-7116-4f13-b656-5d26f8d5832d
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/2b93a0f7-8785-4f5b-a864-a0992646c2f8
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/0cbe1910-da85-4256-b4d9-d0e12f70276b
 
 
+Next we present five groups of AEs in the digital world:
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/7f24c697-2408-448f-a0e4-e09acd213f44
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/4a6022ff-06f5-49bb-b360-52aa72ff7b19
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/b03d2a73-b014-4d3f-8fab-5ca56f011713
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/c136ae05-1b38-4acd-a5ea-adc62b687fb3
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/da7b119e-1be9-451d-8ffc-97e57159359f
+
+Finally, we show some videos taken during the attack in the physical world and you can see all the videos in the `videos` folder:
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/2bdf326b-5e73-43a5-88a3-2d1883ea8a93
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/3b6845a0-acd2-44f2-beb8-6db24d9d07b3
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/b22908d1-6312-40aa-8ff0-37a3824d95e6
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/1420fb71-ab14-4fab-9346-7d985a35e184
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/b45c3794-9471-44d3-82fe-b3ac6ba72671
 
