@@ -33,6 +33,12 @@ python attack_physical.py --speech-file-path target_TTS_path --music-file-path .
 AEs will be saved in folder `physical_samples` and you need the test wheather they are successful in the physical devices.
 
 # Demos
-<audio src="https://github.com/yzslry/Electronic-Music-Assassin/blob/main/AEs/digital/ours/call_my_wife.wav"></audio>
+You can see the AEs we used in our survey on human auditory perception in the folder `AEs`. AEs for both the physical and digital worlds are included in it.
+
+
+
+
+https://github.com/yzslry/Electronic-Music-Assassin/assets/46239997/fb06d538-5612-4eb3-be9c-1797645a11eb
+
 
 
